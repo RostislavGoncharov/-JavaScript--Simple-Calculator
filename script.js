@@ -17,3 +17,8 @@ function divide(number1, number2)
 {
     return number1 / number2;
 }
+
+function operate(number1, number2, callback)
+{
+    return callback(number1, number2);
+}
