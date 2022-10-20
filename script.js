@@ -1,7 +1,8 @@
-let operand1 = 0;
+let operand1 = null;
+let operand2 = null;
 
 const screen = document.querySelector(".screen");
-screen.textContent = operand1;
+screen.textContent = 0;
 
 const digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach((digitButton) => {
@@ -15,9 +16,14 @@ digitButtons.forEach((digitButton) => {
         {
             screen.textContent += digitButton.textContent;
         }
-
-        operand1 = screen.textContent;
     })
+})
+
+const clearButton = document.querySelector(".clear");
+clearButton.addEventListener("click", () => {
+    screen.textContent = 0;
+    operand1 = null;
+    operand2 = null;
 })
 
 function add(number1, number2)
