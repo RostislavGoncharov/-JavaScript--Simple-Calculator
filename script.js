@@ -29,11 +29,6 @@ digitButtons.forEach((digitButton) => {
 const operatorButtons = document.querySelectorAll(".operator");
 operatorButtons.forEach((operatorButton) => {
     operatorButton.addEventListener("click", () => {
-        if (nextOperation != null)
-        {
-            return;
-        }
-
         if (operand1 == null)
         {
             operand1 = Number(screen.textContent);
@@ -42,8 +37,11 @@ operatorButtons.forEach((operatorButton) => {
 
         else if (operand2 == null)
         {
-            operand2 == Number(screen.textContent);
+            operand2 = Number(screen.textContent);
+            console.log(operand2);
             operand1 = operate(operand1, operand2, operations[nextOperation]);
+            screen.textContent = operand1;
+            operand2 = null;
             nextOperation = operatorButton.value;
         }
     })
