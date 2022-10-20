@@ -1,6 +1,7 @@
 let operand1 = null;
 let operand2 = null;
 let nextOperation = null;
+let isWaitingForOperand2 = false;
 
 let operations = {};
 operations.add = add;
@@ -14,9 +15,11 @@ screen.textContent = 0;
 const digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach((digitButton) => {
     digitButton.addEventListener("click", () => {
-        if (screen.textContent == 0 && screen.textContent.indexOf(".") === -1)
+        if (screen.textContent == 0 && screen.textContent.indexOf(".") === -1 ||
+            isWaitingForOperand2)
         {
             screen.textContent = digitButton.textContent;
+            isWaitingForOperand2 = false;
         }
 
         else
@@ -33,16 +36,17 @@ operatorButtons.forEach((operatorButton) => {
         {
             operand1 = Number(screen.textContent);
             nextOperation = operatorButton.value;
+            isWaitingForOperand2 = true;
         }
 
         else if (operand2 == null)
         {
             operand2 = Number(screen.textContent);
-            console.log(operand2);
             operand1 = operate(operand1, operand2, operations[nextOperation]);
             screen.textContent = operand1;
             operand2 = null;
             nextOperation = operatorButton.value;
+            isWaitingForOperand2 = true;
         }
     })
 })
