@@ -1,7 +1,7 @@
 let operand1 = null;
 let operand2 = null;
 let nextOperation = null;
-let isWaitingForOperand2 = false;
+let isWaitingForOperand = false;
 
 let operations = {};
 operations.add = add;
@@ -16,10 +16,10 @@ const digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach((digitButton) => {
     digitButton.addEventListener("click", () => {
         if (screen.textContent == 0 && screen.textContent.indexOf(".") === -1 ||
-            isWaitingForOperand2)
+            isWaitingForOperand)
         {
             screen.textContent = digitButton.textContent;
-            isWaitingForOperand2 = false;
+            isWaitingForOperand = false;
         }
 
         else
@@ -32,11 +32,16 @@ digitButtons.forEach((digitButton) => {
 const operatorButtons = document.querySelectorAll(".operator");
 operatorButtons.forEach((operatorButton) => {
     operatorButton.addEventListener("click", () => {
-        if (operand1 == null)
+        if (isWaitingForOperand)
+        {
+            nextOperation = operatorButton.value;
+        }
+
+        else if (operand1 == null)
         {
             operand1 = Number(screen.textContent);
             nextOperation = operatorButton.value;
-            isWaitingForOperand2 = true;
+            isWaitingForOperand = true;
         }
 
         else if (operand2 == null)
@@ -46,7 +51,7 @@ operatorButtons.forEach((operatorButton) => {
             screen.textContent = operand1;
             operand2 = null;
             nextOperation = operatorButton.value;
-            isWaitingForOperand2 = true;
+            isWaitingForOperand = true;
         }
     })
 })
@@ -72,6 +77,7 @@ equalButton.addEventListener("click", () => {
     operand1 = null;
     operand2 = null;
     nextOperation = null;
+    isWaitingForOperand = true;
 })
 
 const clearButton = document.querySelector(".clear");
@@ -80,6 +86,7 @@ clearButton.addEventListener("click", () => {
     operand1 = null;
     operand2 = null;
     nextOperation = null;
+    isWaitingForOperand = false;
 })
 
 function add(number1, number2)
