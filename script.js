@@ -1,3 +1,25 @@
+let operand1 = 0;
+
+const screen = document.querySelector(".screen");
+screen.textContent = operand1;
+
+const digitButtons = document.querySelectorAll(".digit");
+digitButtons.forEach((digitButton) => {
+    digitButton.addEventListener("click", () => {
+        if (screen.textContent == 0)
+        {
+            screen.textContent = digitButton.textContent;
+        }
+
+        else
+        {
+            screen.textContent += digitButton.textContent;
+        }
+
+        operand1 = screen.textContent;
+    })
+})
+
 function add(number1, number2)
 {
     return number1 + number2;
