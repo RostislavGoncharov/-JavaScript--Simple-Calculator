@@ -7,7 +7,7 @@ screen.textContent = 0;
 const digitButtons = document.querySelectorAll(".digit");
 digitButtons.forEach((digitButton) => {
     digitButton.addEventListener("click", () => {
-        if (screen.textContent == 0)
+        if (screen.textContent == 0 && screen.textContent.indexOf(".") === -1)
         {
             screen.textContent = digitButton.textContent;
         }
@@ -17,6 +17,14 @@ digitButtons.forEach((digitButton) => {
             screen.textContent += digitButton.textContent;
         }
     })
+})
+
+const dotButton = document.querySelector(".dot");
+dotButton.addEventListener("click", () => {
+    if (screen.textContent.indexOf(".") === -1)
+    {
+        screen.textContent += dotButton.textContent;
+    }
 })
 
 const clearButton = document.querySelector(".clear");
