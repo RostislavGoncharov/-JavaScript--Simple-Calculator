@@ -1,5 +1,12 @@
 let operand1 = null;
 let operand2 = null;
+let nextOperation = null;
+
+let operations = {};
+operations.add = add;
+operations.subtract = subtract;
+operations.multiply = multiply;
+operations.divide = divide;
 
 const screen = document.querySelector(".screen");
 screen.textContent = 0;
@@ -19,6 +26,29 @@ digitButtons.forEach((digitButton) => {
     })
 })
 
+const operatorButtons = document.querySelectorAll(".operator");
+operatorButtons.forEach((operatorButton) => {
+    operatorButton.addEventListener("click", () => {
+        if (nextOperation != null)
+        {
+            return;
+        }
+
+        if (operand1 == null)
+        {
+            operand1 = Number(screen.textContent);
+            nextOperation = operatorButton.value;
+        }
+
+        else if (operand2 == null)
+        {
+            operand2 == Number(screen.textContent);
+            operand1 = operate(operand1, operand2, operations[nextOperation]);
+            nextOperation = operatorButton.value;
+        }
+    })
+})
+
 const dotButton = document.querySelector(".dot");
 dotButton.addEventListener("click", () => {
     if (screen.textContent.indexOf(".") === -1)
@@ -27,11 +57,27 @@ dotButton.addEventListener("click", () => {
     }
 })
 
+const equalButton = document.querySelector(".equals");
+equalButton.addEventListener("click", () => {
+    if (operand1 == null)
+    {
+        return;
+    }
+
+    operand2 = Number(screen.textContent);
+
+    screen.textContent = operate(operand1, operand2, operations[nextOperation]);
+    operand1 = null;
+    operand2 = null;
+    nextOperation = null;
+})
+
 const clearButton = document.querySelector(".clear");
 clearButton.addEventListener("click", () => {
     screen.textContent = 0;
     operand1 = null;
     operand2 = null;
+    nextOperation = null;
 })
 
 function add(number1, number2)
