@@ -27,6 +27,7 @@ button {
     border-width: 1px;
     border-color: black;
     text-align: end;
+    word-break: break-all;
 }
 
 
